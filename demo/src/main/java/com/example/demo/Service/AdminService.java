@@ -36,6 +36,14 @@ public class AdminService {
         repo.deleteById(id);
     }
 
+    public Admin getAdminByName(String name) {
+        return repo.getAdminByName(name);
+    }
+    public Admin getAdminByEmail(String email) {
+        return repo.getAdminByEmail(email);
+    }
+
+
     public List<Admin> sort(String field){
         Sort sort = Sort.by(Sort.Direction.ASC, field);
         return repo.findAll(sort);

@@ -1,16 +1,11 @@
 package com.example.demo.Entity;
-
-import org.springframework.stereotype.Component;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Component
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,12 +14,17 @@ import lombok.Setter;
 public class Bus {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String busNumber;
     private String route;
     private int capacity;
-    private String driverName;
-
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Driver driver;
+    public void setDriver(Driver driver) {
+        driver.setBus(this);
+        this.driver = driver; 
+    }
 }

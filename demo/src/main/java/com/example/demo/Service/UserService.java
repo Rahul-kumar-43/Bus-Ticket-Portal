@@ -8,12 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import com.example.demo.Entity.User;
+import com.example.demo.Entity.Booking;
 import com.example.demo.Repository.UserRepository;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository repo;
+
+    public User saveUser(User prod) {
+        for(Booking booking:prod.getBookings()){
+            booking.setUser(prod);
+        }
+        return repo.save(prod);
+    }
 
      public List<User> getAllUsers() {
         return repo.findAll();
@@ -23,9 +31,7 @@ public class UserService {
         return repo.findById(id).get();
     }
 
-    public void AddUser(User prod) {
-        repo.save(prod);
-    }
+   
 
     public void UpdateUser(User prod) {
        repo.save(prod);
@@ -34,14 +40,17 @@ public class UserService {
     public void DeleteUser(int id) {
         repo.deleteById(id);
     }
-    public List<User> AddUsers(List<User> users) {
-        return repo.saveAll(users);
+    
+
+    public User getUserByUsername(String username) {
+        return repo.getUserByUsername(username);
     }
 
     public List<User> sort(String field) {
     Sort sort = Sort.by(Sort.Direction.ASC, field);
     return repo.findAll(sort);
 }
+
 
 public List<User> page(int pageSize, int pageNumber) {
     Pageable page = PageRequest.of(pageNumber, pageSize);

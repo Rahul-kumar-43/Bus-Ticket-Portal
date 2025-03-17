@@ -1,12 +1,12 @@
 package com.example.demo.Entity;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import jakarta.persistence.OneToOne;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-@Component
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,10 +15,14 @@ import lombok.Setter;
 public class Driver {
 
     @Id
-
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
     private String licenseNumber;
     private long phone;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+    private Bus bus;
 
 }
