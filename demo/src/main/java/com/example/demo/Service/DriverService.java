@@ -1,32 +1,24 @@
 package com.example.demo.Service;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.Entity.Driver;
 import com.example.demo.Repository.DriverRepository;
-
 @Service
 public class DriverService {
     @Autowired
     DriverRepository repo;
-
     public void addDriver(Driver driver) {
         repo.save(driver);
     }
-
     public Iterable<Driver> getAllDrivers() {
         return repo.findAll();
     }
-
     public Driver getDriverById(long id) {
         return repo.findById(id).get();
     }
-
     public Driver getDriverByLicenseNumber(String licenseNumber) {
         return repo.getDriverByLicenseNumber(licenseNumber);
     }
@@ -39,7 +31,6 @@ public class DriverService {
     public Driver getDriverByName(String name) {
         return repo.getDriverByName(name);
     }
-
     public void deleteDriver(long id) {
         repo.deleteById(id);
     }
@@ -54,10 +45,8 @@ public class DriverService {
         PageRequest page = PageRequest.of(pageNumber, pageSize);
         return repo.findAll(page).getContent();
     }
-    
     public List<Driver> pagesort(int pageSize, int pageNumber, String field) {
         return repo.findAll(PageRequest.of(pageNumber, pageSize).withSort(Sort.by(Sort.Direction.ASC, field)))
                 .getContent();
     }
-    
 }

@@ -1,14 +1,9 @@
 package com.example.demo.Entity;
+
 import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-// import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.*;
-
 @Component
 @Entity
 @AllArgsConstructor
@@ -16,11 +11,12 @@ import lombok.*;
 @Getter
 @Setter
 public class Booking {
-    
+
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String bookingDate;
+    @Column(nullable = false)
     private int SeatId;
     private String status;
     private String paymentStatus;
@@ -31,6 +27,4 @@ public class Booking {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
-    
-
 }

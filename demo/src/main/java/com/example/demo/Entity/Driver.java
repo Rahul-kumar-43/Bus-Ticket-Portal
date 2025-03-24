@@ -1,6 +1,5 @@
 package com.example.demo.Entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Driver {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

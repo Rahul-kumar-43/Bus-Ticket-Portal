@@ -18,8 +18,8 @@ public class BookingController {
 
     @PostMapping
     public Booking addBooking(@RequestBody Booking booking) {
-        service.saveBooking(booking);
-        return booking;
+        return service.saveBooking(booking);
+       
     }
 
     @GetMapping
